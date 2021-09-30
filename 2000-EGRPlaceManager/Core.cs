@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using MRK.WTE;
 
 namespace MRK {
     public class Core {
         string LivePlacesDirectory => @"\Places";
+        string WTEPlacesDirectory => @"\WTE";
         static Core ms_Instance;
 
         public static Core Instance {
@@ -49,6 +52,43 @@ namespace MRK {
             }
 
             return livePlaces;
+        }
+
+        public async Task<Context> GetWTEContext() {
+            string dir = Main.Instance.WorkingDirectory + WTEPlacesDirectory;
+            if (!CheckDirectory(dir)) {
+                return null;
+            }
+
+            List<string> databases = Directory.EnumerateFiles(dir)
+                .Where(filename => Path.GetExtension(filename) == ".2000")
+                .ToList();
+
+            switch (databases.Count) {
+                case 0:
+                    //error
+                    Logger.LogError("No WTE database found");
+                    break;
+
+                case 1:
+                    break;
+
+                default:
+                    Logger.LogError("More than one WTE database found");
+                    return null;
+            }
+
+            byte[] data = await File.ReadAllBytesAsync(databases[0]);
+
+            using MemoryStream stream = new(data);
+            using BinaryReader reader = new(stream);
+
+            Context ctx = new Context();
+            ctx.BinaryRead(reader);
+
+            reader.Close();
+
+            return ctx;
         }
     }
 }
