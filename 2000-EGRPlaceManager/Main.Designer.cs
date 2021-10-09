@@ -53,6 +53,7 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.liveSearchToolstrip = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.SaveButton = new System.Windows.Forms.ToolStripButton();
             this.consoleTextbox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.consoleCallerPathToggle = new System.Windows.Forms.CheckBox();
@@ -292,7 +293,8 @@
             this.refreshToolstrip,
             this.toolStripSeparator1,
             this.toolStripDropDownButton1,
-            this.toolStripSeparator2});
+            this.toolStripSeparator2,
+            this.SaveButton});
             this.bottomToolstrip.Location = new System.Drawing.Point(0, 0);
             this.bottomToolstrip.Name = "bottomToolstrip";
             this.bottomToolstrip.Size = new System.Drawing.Size(1015, 25);
@@ -335,6 +337,15 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // SaveButton
+            // 
+            this.SaveButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.SaveButton.Image = ((System.Drawing.Image)(resources.GetObject("SaveButton.Image")));
+            this.SaveButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.SaveButton.Name = "SaveButton";
+            this.SaveButton.Size = new System.Drawing.Size(35, 22);
+            this.SaveButton.Text = "Save";
             // 
             // consoleTextbox
             // 
@@ -431,6 +442,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.Button placesWTESearchButton;
+        private System.Windows.Forms.ToolStripButton SaveButton;
     }
 }
 

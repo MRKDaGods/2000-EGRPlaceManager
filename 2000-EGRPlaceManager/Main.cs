@@ -32,6 +32,7 @@ namespace MRK {
             //button event handlers
             chooseWorkingAreaButton.Click += OnWorkingAreaButtonClicked;
             refreshToolstrip.Click += OnRefreshTooltipClick;
+            SaveButton.Click += SaveButton_Click;
 
             //textbox event handlers
             workingDirectoryTextbox.TextChanged += OnWorkingDirectoryTextboxTextChanged;
@@ -63,6 +64,24 @@ namespace MRK {
             workingDirectoryTextbox.Text = m_Config["WORKING_DIRECTORY"].String;
             Select();
         }
+
+        private void SaveButton_Click(object? sender, EventArgs e)
+        {
+            Logger.LogInfo("saving");
+            var SelectedTab = mainTabControl.SelectedTab;
+            Logger.LogInfo($"current tab is {SelectedTab.Name}");
+
+            IView view;
+            m_Views.TryGetValue(SelectedTab, out view);
+            if (view == null)
+            {
+                Logger.LogError($"Tab page '{SelectedTab.Text}' does not have an assocciated view");
+                return;
+            }
+
+            view.SaveData();
+        }
+
 
         void OnLiveSearchToolstripCheckStateChanged(object? sender, EventArgs e) {
             LiveSearchEnabled = liveSearchToolstrip.Checked;

@@ -16,6 +16,7 @@ namespace MRK {
         readonly ListViewItem m_SearchItem;
         CancellationTokenSource m_CancellationTokenSource;
 
+
         public View(string viewName, TabPage page) {
             m_SearchBox = (TextBox)page.Controls.Find($"{viewName}SearchTextbox", false)[0];
             m_ListView = (ListView)page.Controls.Find($"{viewName}ListView", false)[0];
@@ -123,5 +124,10 @@ namespace MRK {
                 AddListViewItem(item, false);
             }
         }
+        public void SaveData() {
+            SaveDataInternal();
+        }
+        protected abstract void SaveDataInternal();
+
     }
 }

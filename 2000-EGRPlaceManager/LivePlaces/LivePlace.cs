@@ -37,15 +37,15 @@ namespace MRK {
     }
 
     public class LivePlace {
-        public string Name { get; private set; }
-        public string Type { get; private set; }
-        public string CID { get; private set; }
-        public ulong CIDNum { get; private set; }
-        public string Address { get; private set; }
-        public double Latitude { get; private set; }
-        public double Longitude { get; private set; }
-        public string[] Ex { get; private set; }
-        public LivePlaceType[] Types { get; private set; }
+        public string Name { get;  set; }
+        public string Type { get;  set; }
+        public string CID { get;  set; }
+        public ulong CIDNum { get;  set; }
+        public string Address { get;  set; }
+        public double Latitude { get;  set; }
+        public double Longitude { get;  set; }
+        public string[] Ex { get;  set; }
+        public LivePlaceType[] Types { get;  set; }
         public ulong Chain { get; set; } //is place related to a chain?
 
         public LivePlace(string name, string type, string cid, string addr, string lat, string lng, string[] ex, ulong chain = 0) {
@@ -115,6 +115,24 @@ namespace MRK {
             }
 
             return place;
+        }
+        public static void Write(BinaryWriter w, LivePlace p) {
+            w.Write(p.Name);
+            w.Write(p.Type);
+            w.Write(p.CID);
+            w.Write(p.Address);
+            w.Write(p.Latitude);
+            w.Write(p.Longitude);
+
+            w.Write(p.Ex.Length);
+            foreach (string ex in p.Ex)
+                w.Write(ex);
+
+            w.Write(p.Chain);
+
+            w.Write(p.Types.Length);
+            foreach (LivePlaceType type in p.Types)
+                w.Write((ushort)type);
         }
     }
 }
